@@ -1,0 +1,42 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+
+
+int head_position = 143;   // Initialize Initial Head_Position 
+int Pending_Reqst[9]={86,1470,913,1774,948,1509,1022,1750,130};  // Initialize Pending Request
+int Cyclinder[5000];       // Total Cyclinder in Disk    
+int Prev_Reqst[9]={125};   // Initialize Prev_Request 
+int Total_Distance=0;      // Declaring Variable Total_Disance
+
+int main()
+{
+	int i,j;
+	for(i=0;i<9+1;i++)
+	{	
+		printf("\n Head Position : %d\n",head_position);
+		printf("\n#################################################################");
+		printf("\n## Prev_Reqst :");
+		for(j=0;j<i+1;j++)
+		{
+			printf("%d ",Prev_Reqst[j]);
+			usleep(800*1000);
+		}
+		printf("\n#################################################################");
+		printf("\n##                                                             ##");
+		printf("\n##\t         Total Distance : %d\t\t\t       ##",Total_Distance);
+		printf("\n##                                                             ##");
+		printf("\n#################################################################");
+		printf("\n## Pending_Reqst :");
+		for(j=i;j<9;j++)
+		{
+			usleep(800*1000);
+			printf("%d  ",Pending_Reqst[j]);
+		}
+		printf("\n#################################################################\n");
+		Total_Distance += abs(head_position - Pending_Reqst[i]);   // Calculating Distance
+		Prev_Reqst[i+1] = head_position;			   // Appending Head_Position to Prev Request After Calculating Total Distance  
+		head_position = Pending_Reqst[i]; // Adding Pending_Request To Head_Position
+	}	
+	return 0;
+}
